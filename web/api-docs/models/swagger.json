@@ -582,12 +582,18 @@
                 "result": {
                     "description": "Result value",
                     "type": "integer",
-                    "format": "int64",
+                    "format": "int32",
                     "default": 1
+                },
+                "user": {
+                    "description": "User id",
+                    "type": "integer",
+                    "format": "int32"
                 }
             },
             "example": {
-                "result": 84
+                "result": 84,
+                "user": 1
             }
         },
         "ResultsArray": {

@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(
  *     name="results",
  *     indexes = {
- *          @ORM\Index(name="FK_USER_ID_idx", columns={ "user_id" })
+ *          @ORM\Index(name="FK_USER_ID_idx", columns={ "user" })
  *      })
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ResultRepository")
  *
@@ -39,14 +39,14 @@ class Result implements \JsonSerializable
      * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
      *     @ORM\JoinColumn(
-     *          name                 = "user_id",
+     *          name                 = "user",
      *          referencedColumnName = "id",
      *          onDelete             = "cascade",
      *          nullable             = false
      *     )
      * })
      */
-    private $user_id;
+    private $user;
 
     /**
      * @var \DateTime
@@ -62,10 +62,10 @@ class Result implements \JsonSerializable
      * @param User $user_id
      * @param \DateTime $time
      */
-    public function __construct(int $result, User $user_id)
+    public function __construct(int $result, User $user)
     {
         $this->result = $result;
-        $this->user_id = $user_id;
+        $this->user = $user;
         $this->time = new \DateTime('now');
     }
 
@@ -107,13 +107,13 @@ class Result implements \JsonSerializable
     /**
      * Set user
      *
-     * @param User $user_id
+     * @param User $user
      *
      * @return Result
      */
-    public function setUserId($user_id)
+    public function setUser($user)
     {
-        $this->user_id = $user_id;
+        $this->user = $user;
 
         return $this;
     }
@@ -123,9 +123,9 @@ class Result implements \JsonSerializable
      *
      * @return User
      */
-    public function getUserId()
+    public function getUser()
     {
-        return $this->user_id;
+        return $this->user;
     }
 
     /**
@@ -158,7 +158,7 @@ class Result implements \JsonSerializable
         return ['result' => [
             'id'            => $this->getId(),
             'result'        => $this->getResult(),
-            'user'          => $this->getUserId(),
+            'user'          => $this->getUser(),
             'time'          => $this->getTime()->format('d-m-Y H:i:s')
             ]
         ];

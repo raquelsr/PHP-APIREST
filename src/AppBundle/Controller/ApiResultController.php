@@ -200,7 +200,7 @@ class ApiResultController extends Controller
                     Response::HTTP_NOT_FOUND
                 );
             } else {
-                $result->setUserId($user);
+                $result->setUser($user);
             }
         }
 

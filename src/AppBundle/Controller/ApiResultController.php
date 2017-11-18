@@ -70,6 +70,49 @@ class ApiResultController extends Controller
     }
 
     /**
+     *
+     * @param int $result Result result
+     *
+     * @return JsonResponse
+     *
+     * @Route("/result/{result}", name="miw_get_results_byresult", requirements={"result": "\d+"})
+     * @Method(Request::METHOD_GET)
+     */
+    public function getResultByResultAction(int $result)
+    {
+        $repo = $this->getDoctrine()->getRepository('AppBundle:Result');
+        $result = $repo->findBy(array('result'=>$result));
+
+        return empty($result)
+            ? new JsonResponse(
+                new Message(Response::HTTP_NOT_FOUND, Response::$statusTexts[404]),
+                Response::HTTP_NOT_FOUND
+            )
+            : new JsonResponse($result);
+    }
+
+    /**
+     *
+     * @param int $userId Result userId
+     *
+     * @return JsonResponse
+     *
+     * @Route("/user/{userId}", name="miw_get_results_byuser", requirements={"user": "\d+"})
+     * @Method(Request::METHOD_GET)
+     */
+    public function getResultByUserAction(int $userId)
+    {
+        $repo = $this->getDoctrine()->getRepository('AppBundle:Result');
+        $result = $repo->findBy(array('user'=>$userId));
+
+        return empty($result)
+            ? new JsonResponse(
+                new Message(Response::HTTP_NOT_FOUND, Response::$statusTexts[404]),
+                Response::HTTP_NOT_FOUND
+            )
+            : new JsonResponse($result);
+    }
+    /**
      * POST action
      *
      * @param Request $request request
@@ -155,6 +198,41 @@ class ApiResultController extends Controller
 
         return new Response(null, Response::HTTP_NO_CONTENT);
     }
+
+    /**
+     *
+     * @param int $result Result result
+     *
+     * @return Response
+     *
+     * @Route("/result/{result}", name="miw_delete_results_byresult", requirements={"resultId": "\d+"})
+     * @Method(Request::METHOD_DELETE)
+     */
+    public function deleteResultByResultAction(int $result)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $results = $entityManager->getRepository(Result::class)->findBy(array('result'=> $result));
+
+        if (empty($results)) {   // 404 - Not Found
+            return new JsonResponse(
+                new Message(
+                    Response::HTTP_NOT_FOUND,
+                    Response::$statusTexts[404]
+                ),
+                Response::HTTP_NOT_FOUND
+            );
+        }
+
+        foreach ($results as $result){
+        $entityManager->remove($result);
+
+    }
+        $entityManager->flush();
+
+        return new Response(null, Response::HTTP_NO_CONTENT);
+    }
+
 
 
     /**

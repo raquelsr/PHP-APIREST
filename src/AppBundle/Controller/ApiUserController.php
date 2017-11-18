@@ -74,6 +74,28 @@ class ApiUserController extends Controller
     }
 
     /**
+     *
+     * @param string $username User username
+     *
+     * @return JsonResponse
+     *
+     * @Route("/username/{username}", name="miw_get_users_byusername")
+     * @Method(Request::METHOD_GET)
+     */
+    public function getUserByUsernameAction(string $username)
+    {
+        $repo = $this->getDoctrine()->getRepository('AppBundle:User');
+        $user = $repo->findOneBy(['username' => $username]);
+
+        return empty ($user)
+            ? new JsonResponse(
+                new Message(Response::HTTP_NOT_FOUND, Response::$statusTexts[404]),
+                Response::HTTP_NOT_FOUND
+            )
+            : new JsonResponse($user);
+    }
+
+    /**
      * POST action
      *
      * @param Request $request request

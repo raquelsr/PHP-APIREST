@@ -194,6 +194,41 @@ class ApiUserController extends Controller
     }
 
     /**
+     * Summary: Deletes a user
+     * Notes: Deletes the user identified by username;.
+     *
+     * @param int $username User username
+     *
+     * @return Response
+     *
+     * @Route("/username/{username}", name="miw_delete_users_byusername")
+     * @Method(Request::METHOD_DELETE)
+     */
+    public function deleteUserByUsernameAction(string $username)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $user = $entityManager
+            ->getRepository(User::class)
+            ->findOneBy(['username' => $username]);
+
+        if (empty($user)) {   // 404 - Not Found
+            return new JsonResponse(
+                new Message(
+                    Response::HTTP_NOT_FOUND,
+                    Response::$statusTexts[404]
+                ),
+                Response::HTTP_NOT_FOUND
+            );
+        }
+
+        $entityManager->remove($user);
+        $entityManager->flush();
+
+        return new Response(null, Response::HTTP_NO_CONTENT);
+    }
+
+    /**
      * Summary: Updates a user
      * Notes: Updates the user identified by &#x60;userId&#x60;.
      *

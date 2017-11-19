@@ -307,6 +307,144 @@
                 }
             }
         },
+        "/results/result/{result}": {
+            "get": {
+                "tags": [
+                    "Results"
+                ],
+                "summary": "Returns a result based on a result value",
+                "description": "Returns the result identified by `result`.",
+                "operationId": "miw_get_results_byresult",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/result"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Result",
+                        "schema": {
+                            "$ref": "#/definitions/Result"
+                        },
+                        "headers": {
+                            "X-Token": {
+                                "description": "api token",
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "404": {
+                        "$ref": "#/responses/404_Resource_Not_Found_Response"
+                    }
+                },
+                "security": [
+                    {
+                        "ResultsSecurity": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Results"
+                ],
+                "summary": "Deletes a results",
+                "description": "Deletes the result identified by `result`.",
+                "operationId": "miw_delete_results_byresult",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/result"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Result deleted <Response body is empty>",
+                        "headers": {
+                            "X-Token": {
+                                "description": "api token",
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "404": {
+                        "$ref": "#/responses/404_Resource_Not_Found_Response"
+                    }
+                },
+                "security": [
+                    {
+                        "ResultsSecurity": []
+                    }
+                ]
+            }
+        },
+        "/results/user/{userId}": {
+            "get": {
+                "tags": [
+                    "Results"
+                ],
+                "summary": "Returns a result based on a user Id",
+                "description": "Returns the result identified by `user`.",
+                "operationId": "miw_get_results_byuser",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/userId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Result",
+                        "schema": {
+                            "$ref": "#/definitions/Result"
+                        },
+                        "headers": {
+                            "X-Token": {
+                                "description": "api token",
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "404": {
+                        "$ref": "#/responses/404_Resource_Not_Found_Response"
+                    }
+                },
+                "security": [
+                    {
+                        "ResultsSecurity": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Results"
+                ],
+                "summary": "Deletes a results",
+                "description": "Deletes the result identified by `userId`.",
+                "operationId": "miw_delete_results_byuser",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/userId"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Result deleted <Response body is empty>",
+                        "headers": {
+                            "X-Token": {
+                                "description": "api token",
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "404": {
+                        "$ref": "#/responses/404_Resource_Not_Found_Response"
+                    }
+                },
+                "security": [
+                    {
+                        "ResultsSecurity": []
+                    }
+                ]
+            }
+        },
         "/users": {
             "get": {
                 "tags": [
@@ -538,6 +676,63 @@
                     }
                 }
             }
+        },
+        "/users/username/{username}": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Returns a user based on a username",
+                "description": "Returns the user identified by `username`.",
+                "operationId": "miw_get_users_byusername",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/username"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    },
+                    "404": {
+                        "$ref": "#/responses/404_Resource_Not_Found_Response"
+                    }
+                },
+                "security": [
+                    {
+                        "ResultsSecurity": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Deletes a user",
+                "description": "Deletes the user identified by `username`.",
+                "operationId": "miw_delete_users_byusername",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/username"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "User deleted <Response body is empty>"
+                    },
+                    "404": {
+                        "$ref": "#/responses/404_Resource_Not_Found_Response"
+                    }
+                },
+                "security": [
+                    {
+                        "ResultsSecurity": []
+                    }
+                ]
+            }
         }
     },
     "definitions": {
@@ -728,6 +923,22 @@
             "required": true,
             "type": "integer",
             "format": "int32"
+        },
+        "result": {
+            "name": "result",
+            "in": "path",
+            "description": "value of result to fetch",
+            "required": true,
+            "type": "integer",
+            "format": "int32",
+            "pattern": "[0-9]+"
+        },
+        "username": {
+            "name": "username",
+            "in": "path",
+            "description": "username of user",
+            "required": true,
+            "type": "string"
         }
     },
     "responses": {

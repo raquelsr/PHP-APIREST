@@ -227,13 +227,46 @@ class ApiResultController extends Controller
         foreach ($results as $result){
         $entityManager->remove($result);
 
-    }
+        }
         $entityManager->flush();
 
         return new Response(null, Response::HTTP_NO_CONTENT);
     }
 
 
+    /**
+     *
+     * @param int $userID Result user
+     *
+     * @return Response
+     *
+     * @Route("/user/{userId}", name="miw_delete_results_byuser", requirements={"userId": "\d+"})
+     * @Method(Request::METHOD_DELETE)
+     */
+    public function deleteResultByUserAction(int $userId)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $results = $entityManager->getRepository(Result::class)->findBy(array('user'=> $userId));
+
+        if (empty($results)) {   // 404 - Not Found
+            return new JsonResponse(
+                new Message(
+                    Response::HTTP_NOT_FOUND,
+                    Response::$statusTexts[404]
+                ),
+                Response::HTTP_NOT_FOUND
+            );
+        }
+
+        foreach ($results as $result){
+            $entityManager->remove($result);
+
+        }
+        $entityManager->flush();
+
+        return new Response(null, Response::HTTP_NO_CONTENT);
+    }
 
     /**
      *

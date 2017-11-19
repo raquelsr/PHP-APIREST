@@ -739,7 +739,8 @@
         "Result": {
             "required": [
                 "id",
-                "result"
+                "result",
+                "user"
             ],
             "properties": {
                 "id": {

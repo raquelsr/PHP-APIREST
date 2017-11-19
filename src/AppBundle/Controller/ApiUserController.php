@@ -197,7 +197,7 @@ class ApiUserController extends Controller
      * Summary: Deletes a user
      * Notes: Deletes the user identified by username;.
      *
-     * @param int $username User username
+     * @param string $username User username
      *
      * @return Response
      *

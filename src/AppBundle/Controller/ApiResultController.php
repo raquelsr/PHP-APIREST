@@ -236,7 +236,7 @@ class ApiResultController extends Controller
 
     /**
      *
-     * @param int $userID Result user
+     * @param int $userId Result user
      *
      * @return Response
      *

@@ -59,8 +59,7 @@ class Result implements \JsonSerializable
     /**
      * Result constructor.
      * @param int $result
-     * @param User $user_id
-     * @param \DateTime $time
+     * @param User $user
      */
     public function __construct(int $result, User $user)
     {

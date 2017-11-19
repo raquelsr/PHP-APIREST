@@ -1,4 +1,9 @@
-apiNov2017
+PHP - Desarrollo de una API REST.
 ==========
 
-A Symfony project created on November 9, 2017, 1:04 pm.
+
+Implementación de una API-REST para Users y Results.
+
+Implementación de pruebas unitarias y funcionales.
+
+( Symfony Proyect )

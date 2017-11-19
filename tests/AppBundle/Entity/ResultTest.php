@@ -13,7 +13,6 @@ namespace Tests\AppBundle\Entity;
 use AppBundle\Entity\Result;
 use AppBundle\Entity\User;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * Class ResultTest

@@ -142,7 +142,7 @@ class ApiResultControllerTest extends WebTestCase
     /**
      * Test POST /results 404 Not Found User
      *
-     * @return array result data
+     * @return void
      *
      * @covers \AppBundle\Controller\ApiResultController::postResultAction()
      */
@@ -427,7 +427,7 @@ class ApiResultControllerTest extends WebTestCase
      *
      * @param array $result result returned by testPostResultAction201()
      *
-     * @return array modified result data
+     * @return void
      *
      * @covers  \AppBundle\Controller\ApiResultController::putResultAction()
      * @depends testPostResultAction201

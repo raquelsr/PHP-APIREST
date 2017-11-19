@@ -320,6 +320,30 @@ class ApiUserControllerTest extends WebTestCase
     }
 
     /**
+     * Test GET /users/username/username 200 Ok
+     *
+     * @param array $user user returned by testPostUserAction201()
+     *
+     * @return void
+     *
+     * @covers  \AppBundle\Controller\ApiUserController::getUserByUsernameAction()
+     * @depends testPostUserAction201
+     */
+    public function testGetUserByUsernameAction200(array $user)
+    {
+        self::$_client->request(
+            Request::METHOD_GET,
+            self::RUTA_API . '/username/' . $user['username']
+        );
+        $response = self::$_client->getResponse();
+
+        self::assertEquals(Response::HTTP_OK, $response->getStatusCode());
+        self::assertJson((string) $response->getContent());
+        $user_aux = json_decode((string) $response->getContent(), true);
+        self::assertEquals($user, $user_aux['user']);
+    }
+
+    /**
      * Test PUT /users/userId 209 Content Returned
      *
      * @param array $user user returned by testPostUserAction201()
@@ -470,6 +494,33 @@ class ApiUserControllerTest extends WebTestCase
     }
 
     /**
+     * Test DELETE /users/username/{username} 404 Not Found
+     **
+     * @return void
+     *
+     * @covers  \AppBundle\Controller\ApiUserController::deleteUserByUsernameAction()
+     * @depends testDeleteUserAction204
+     */
+    public function testDeleteUserByUsernameAction404()
+    {
+        $user = 1111111111111;
+        self::$_client->request(
+            Request::METHOD_DELETE,
+            self::RUTA_API . '/username/' . $user
+        );
+        $response = self::$_client->getResponse();
+
+        self::assertEquals(Response::HTTP_NOT_FOUND, $response->getStatusCode());
+        $r_body = (string) $response->getContent();
+        self::assertContains('code', $r_body);
+        self::assertContains('message', $r_body);
+        $r_data = json_decode($r_body, true);
+        self::assertEquals(Response::HTTP_NOT_FOUND, $r_data['code']);
+        self::assertEquals(Response::$statusTexts[404], $r_data['message']);
+    }
+
+
+    /**
      * Test GET /users/userId 404 Not Found
      *
      * @param int $userId user id. returned by testDeleteUserAction204()
@@ -482,6 +533,30 @@ class ApiUserControllerTest extends WebTestCase
     public function testGetUserAction404(int $userId)
     {
         self::$_client->request(Request::METHOD_GET, self::RUTA_API . '/' . $userId);
+        $response = self::$_client->getResponse();
+
+        self::assertEquals(Response::HTTP_NOT_FOUND, $response->getStatusCode());
+        $r_body = (string) $response->getContent();
+        self::assertContains('code', $r_body);
+        self::assertContains('message', $r_body);
+        $r_data = json_decode($r_body, true);
+        self::assertEquals(Response::HTTP_NOT_FOUND, $r_data['code']);
+        self::assertEquals(Response::$statusTexts[404], $r_data['message']);
+    }
+
+
+    /**
+     * Test GET /users/username/{username} 404 Not Found
+     *
+     * @return void
+     *
+     * @covers  \AppBundle\Controller\ApiUserController::getUserByUsernameAction()
+     */
+    public function testGetUserByUsernameAction404()
+    {
+        $user = 1111111111111;
+
+        self::$_client->request(Request::METHOD_GET, self::RUTA_API . '/username/' . $user);
         $response = self::$_client->getResponse();
 
         self::assertEquals(Response::HTTP_NOT_FOUND, $response->getStatusCode());

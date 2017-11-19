@@ -268,7 +268,7 @@ class ApiResultControllerTest extends WebTestCase
      *
      * @return void
      *
-     * @covers  \AppBundle\Controller\ApiResultController::postResultAction()
+     * @covers  \AppBundle\Controller\ApiResultController::getResultAction()
      * @depends testPostResultAction201
      */
     public function testGetResultAction200(array $result)
@@ -283,6 +283,54 @@ class ApiResultControllerTest extends WebTestCase
         self::assertJson((string) $response->getContent());
         $result_aux = json_decode((string) $response->getContent(), true);
         self::assertEquals($result, $result_aux['result']);
+
+    }
+
+    /**
+     * Test GET /results/result/valueResult 200 Ok
+     *
+     * @param array $result result returned by testPostResultAction201()
+     *
+     * @return void
+     *
+     * @covers  \AppBundle\Controller\ApiResultController::getResultByResultAction()
+     * @depends testPostResultAction201
+     */
+    public function testGetResultByResultAction200(array $result)
+    {
+        self::$_client->request(
+            Request::METHOD_GET,
+            self::RUTA_API . '/result/' . $result['result']
+        );
+        $response = self::$_client->getResponse();
+        self::assertEquals(Response::HTTP_OK, $response->getStatusCode());
+        self::assertJson((string) $response->getContent());
+        $result_aux = json_decode((string) $response->getContent(), true);
+        self::assertEquals($result['result'], $result_aux[0]['result']['result']);
+
+    }
+
+    /**
+     * Test GET /results/result/userId 200 Ok
+     *
+     * @param array $result result returned by testPostResultAction201()
+     *
+     * @return void
+     *
+     * @covers  \AppBundle\Controller\ApiResultController::getResultByUserAction()
+     * @depends testPostResultAction201
+     */
+    public function testGetResultByUserAction200(array $result)
+    {
+        self::$_client->request(
+            Request::METHOD_GET,
+            self::RUTA_API . '/user/' . $result['user']['user']['id']
+        );
+        $response = self::$_client->getResponse();
+        self::assertEquals(Response::HTTP_OK, $response->getStatusCode());
+        self::assertJson((string) $response->getContent());
+        $result_aux = json_decode((string) $response->getContent(), true);
+        self::assertEquals($result['user'], $result_aux[0]['result']['user']);
 
     }
 
@@ -488,6 +536,56 @@ class ApiResultControllerTest extends WebTestCase
     }
 
     /**
+     * Test DELETE /results/result/valueResult 404 Not Found
+     *
+     * @return void
+     *
+     * @covers  \AppBundle\Controller\ApiResultController::deleteResultByResultAction()
+     */
+    public function testDeleteResultByResultAction404()
+    {
+        $result = 1111111111111;
+        self::$_client->request(
+            Request::METHOD_DELETE,
+            self::RUTA_API . '/result/' . $result
+        );
+        $response = self::$_client->getResponse();
+
+        self::assertEquals(Response::HTTP_NOT_FOUND, $response->getStatusCode());
+        $r_body = (string) $response->getContent();
+        self::assertContains('code', $r_body);
+        self::assertContains('message', $r_body);
+        $r_data = json_decode($r_body, true);
+        self::assertEquals(Response::HTTP_NOT_FOUND, $r_data['code']);
+        self::assertEquals(Response::$statusTexts[404], $r_data['message']);
+    }
+
+    /**
+     * Test DELETE /results/user/userId 404 Not Found
+     *
+     * @return void
+     *
+     * @covers  \AppBundle\Controller\ApiResultController::deleteResultByUserAction()
+     */
+    public function testDeleteResultByUserAction404()
+    {
+        $user = 1111111111111;
+        self::$_client->request(
+            Request::METHOD_DELETE,
+            self::RUTA_API . '/user/' . $user
+        );
+        $response = self::$_client->getResponse();
+
+        self::assertEquals(Response::HTTP_NOT_FOUND, $response->getStatusCode());
+        $r_body = (string) $response->getContent();
+        self::assertContains('code', $r_body);
+        self::assertContains('message', $r_body);
+        $r_data = json_decode($r_body, true);
+        self::assertEquals(Response::HTTP_NOT_FOUND, $r_data['code']);
+        self::assertEquals(Response::$statusTexts[404], $r_data['message']);
+    }
+
+    /**
      * Test GET /results/resultId 404 Not Found
      *
      * @param int $resultId result id. returned by testDeleteResultAction204()
@@ -510,6 +608,53 @@ class ApiResultControllerTest extends WebTestCase
         self::assertEquals(Response::HTTP_NOT_FOUND, $r_data['code']);
         self::assertEquals(Response::$statusTexts[404], $r_data['message']);
     }
+
+    /**
+     * Test GET /results/result/valueResult 404 Not Found
+     **
+     * @return void
+     *
+     * @covers  \AppBundle\Controller\ApiResultController::getResultByResultAction()
+     */
+    public function testGetResultByResultAction404()
+    {
+        $result = 1111111111111;
+        self::$_client->request(Request::METHOD_GET, self::RUTA_API . '/result/' . $result);
+        $response = self::$_client->getResponse();
+
+        self::assertEquals(Response::HTTP_NOT_FOUND, $response->getStatusCode());
+        $r_body = (string) $response->getContent();
+        self::assertContains('code', $r_body);
+        self::assertContains('message', $r_body);
+        $r_data = json_decode($r_body, true);
+        self::assertEquals(Response::HTTP_NOT_FOUND, $r_data['code']);
+        self::assertEquals(Response::$statusTexts[404], $r_data['message']);
+    }
+
+    /**
+     * Test GET /results/user/userId 404 Not Found
+     *
+     *
+     * @return void
+     *
+     * @covers  \AppBundle\Controller\ApiResultController::getResultByUserAction()
+     * @depends testDeleteResultAction204
+     */
+    public function testGetResultByUserAction404()
+    {
+        $userId = 1111111111111;
+        self::$_client->request(Request::METHOD_GET, self::RUTA_API . '/user/' . $userId);
+        $response = self::$_client->getResponse();
+
+        self::assertEquals(Response::HTTP_NOT_FOUND, $response->getStatusCode());
+        $r_body = (string) $response->getContent();
+        self::assertContains('code', $r_body);
+        self::assertContains('message', $r_body);
+        $r_data = json_decode($r_body, true);
+        self::assertEquals(Response::HTTP_NOT_FOUND, $r_data['code']);
+        self::assertEquals(Response::$statusTexts[404], $r_data['message']);
+    }
+
 
     /**
      * Test PUT /results/resultId 404 Not Found

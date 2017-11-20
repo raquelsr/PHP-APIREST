@@ -342,4 +342,25 @@ class ApiUserController extends Controller
             ['Allow' => implode(', ', $methods)]
         );
     }
+
+    /**
+     *
+     *
+     * @return JsonResponse
+     *
+     * @Route(
+     *     "/username/{username}",
+     *     name = "miw_options_users_byusername")
+     * @Method(Request::METHOD_OPTIONS)
+     */
+    public function optionsUserByUsernameAction()
+    {
+        $methods = ['GET', 'DELETE'];
+
+        return new JsonResponse(
+            null,
+            Response::HTTP_OK,
+            ['Allow' => implode(', ', $methods)]
+        );
+    }
 }

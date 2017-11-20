@@ -750,6 +750,24 @@
                         "ResultsSecurity": []
                     }
                 ]
+            },
+            "options": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Provides the list of HTTP supported methods",
+                "description": "Return a `Allow` header with a list of HTTP supported methods.",
+                "operationId": "miw_options_users_byusername",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/username"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "`Allow` header <Response body is empty>"
+                    }
+                }
             }
         }
     },

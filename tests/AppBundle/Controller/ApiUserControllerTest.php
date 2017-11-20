@@ -67,6 +67,27 @@ class ApiUserControllerTest extends WebTestCase
         self::assertNotEmpty($response->headers->get('Allow'));
     }
 
+
+    /**
+     * Test OPTIONS /users/username/{username} 200 Ok
+     *
+     * @return void
+     *
+     * @covers \AppBundle\Controller\ApiUserController::optionsUserByUsernameAction()
+     */
+    public function testOptionsUserByUserAction200()
+    {
+        self::$_client->request(
+            Request::METHOD_OPTIONS,
+            self::RUTA_API . '/username/' . mt_rand(0, 1000000)
+        );
+
+        $response = self::$_client->getResponse();
+        self::assertEquals(Response::HTTP_OK, $response->getStatusCode());
+        self::assertNotEmpty($response->headers->get('Allow'));
+    }
+
+
     /**
      * Test GET /users 200 Ok
      *

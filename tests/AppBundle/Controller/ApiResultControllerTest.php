@@ -73,6 +73,46 @@ class ApiResultControllerTest extends WebTestCase
     }
 
     /**
+     * Test OPTIONS /results/result/{result} 200 Ok
+     *
+     * @return void
+     *
+     * @covers \AppBundle\Controller\ApiResultController::optionsResultByResultAction()
+     */
+    public function testOptionsResultByResultAction200()
+    {
+
+        self::$_client->request(
+            Request::METHOD_OPTIONS,
+            self::RUTA_API . '/result/' . mt_rand(0, 1000000)
+        );
+
+        $response = self::$_client->getResponse();
+        self::assertEquals(Response::HTTP_OK, $response->getStatusCode());
+        self::assertNotEmpty($response->headers->get('Allow'));
+    }
+
+    /**
+     * Test OPTIONS /results/user/{userId} 200 Ok
+     *
+     * @return void
+     *
+     * @covers \AppBundle\Controller\ApiResultController::optionsResultByUserAction()
+     */
+    public function testOptionsResultByUserAction200()
+    {
+
+        self::$_client->request(
+            Request::METHOD_OPTIONS,
+            self::RUTA_API . '/user/' . mt_rand(0, 1000000)
+        );
+
+        $response = self::$_client->getResponse();
+        self::assertEquals(Response::HTTP_OK, $response->getStatusCode());
+        self::assertNotEmpty($response->headers->get('Allow'));
+    }
+
+    /**
      * Test GET /results 200 OK
      *
      * @return void

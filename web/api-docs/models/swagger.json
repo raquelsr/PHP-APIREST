@@ -368,6 +368,24 @@
                         "ResultsSecurity": []
                     }
                 ]
+            },
+            "options": {
+                "tags": [
+                    "Results"
+                ],
+                "summary": "Provides the list of HTTP supported methods",
+                "description": "Return a `Allow` header with a list of HTTP supported methods.",
+                "operationId": "miw_options_results_byresult",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/result"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "`Allow` header <Response body is empty>"
+                    }
+                }
             }
         },
         "/results/user/{userId}": {
@@ -425,6 +443,24 @@
                         "ResultsSecurity": []
                     }
                 ]
+            },
+            "options": {
+                "tags": [
+                    "Results"
+                ],
+                "summary": "Provides the list of HTTP supported methods",
+                "description": "Return a `Allow` header with a list of HTTP supported methods.",
+                "operationId": "miw_options_results_byuser",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/userId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "`Allow` header <Response body is empty>"
+                    }
+                }
             }
         },
         "/users": {

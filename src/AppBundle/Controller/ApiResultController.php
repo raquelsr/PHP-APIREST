@@ -350,4 +350,46 @@ class ApiResultController extends Controller
         );
     }
 
+
+    /**
+     *
+     * @return JsonResponse
+     *
+     * @Route(
+     *     "/result/{result}",
+     *     name = "miw_options_results_byresult",
+     *     )
+     * @Method(Request::METHOD_OPTIONS)
+     */
+    public function optionsResultByResultAction()
+    {
+        $methods = ['GET', 'DELETE'];
+
+        return new JsonResponse(
+            null,
+            Response::HTTP_OK,
+            ['Allow' => implode(', ', $methods)]
+        );
+    }
+
+    /**
+     *
+     * @return JsonResponse
+     *
+     * @Route(
+     *     "/user/{userId}",
+     *     name = "miw_options_results_byUserId",
+     *     )
+     * @Method(Request::METHOD_OPTIONS)
+     */
+    public function optionsResultByUserAction()
+    {
+        $methods = ['GET', 'DELETE'];
+
+        return new JsonResponse(
+            null,
+            Response::HTTP_OK,
+            ['Allow' => implode(', ', $methods)]
+        );
+    }
 }

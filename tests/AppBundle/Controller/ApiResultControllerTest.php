@@ -453,7 +453,7 @@ class ApiResultControllerTest extends WebTestCase
         self::assertContains('message', $r_body);
         $r_data = json_decode($r_body, true);
         self::assertEquals(Response::HTTP_NOT_FOUND, $r_data['code']);
-        self::assertEquals('El usuario no existe', $r_data['message']);
+        self::assertEquals('UserId not found', $r_data['message']);
 
     }
 

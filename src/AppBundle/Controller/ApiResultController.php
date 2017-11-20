@@ -150,7 +150,7 @@ class ApiResultController extends Controller
             return new JsonResponse(
                 new Message(
                     Response::HTTP_NOT_FOUND,
-                    'El usuario no existe'
+                    'UserId not found'
                 ),
                 Response::HTTP_NOT_FOUND
             );
@@ -306,7 +306,7 @@ class ApiResultController extends Controller
                 return new JsonResponse(
                     new Message(
                         Response::HTTP_NOT_FOUND,
-                        'El usuario no existe'
+                        'UserId not found'
                     ),
                     Response::HTTP_NOT_FOUND
                 );

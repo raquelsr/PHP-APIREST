@@ -312,8 +312,8 @@
                 "tags": [
                     "Results"
                 ],
-                "summary": "Returns a result based on a result value",
-                "description": "Returns the result identified by `result`.",
+                "summary": "Returns a results based on a result value",
+                "description": "Returns the results identified by `result`.",
                 "operationId": "miw_get_results_byresult",
                 "parameters": [
                     {
@@ -324,7 +324,7 @@
                     "200": {
                         "description": "Result",
                         "schema": {
-                            "$ref": "#/definitions/Result"
+                            "$ref": "#/definitions/ResultsArray"
                         },
                         "headers": {
                             "X-Token": {
@@ -357,13 +357,7 @@
                 ],
                 "responses": {
                     "204": {
-                        "description": "Result deleted <Response body is empty>",
-                        "headers": {
-                            "X-Token": {
-                                "description": "api token",
-                                "type": "string"
-                            }
-                        }
+                        "description": "Result deleted <Response body is empty>"
                     },
                     "404": {
                         "$ref": "#/responses/404_Resource_Not_Found_Response"
@@ -381,8 +375,8 @@
                 "tags": [
                     "Results"
                 ],
-                "summary": "Returns a result based on a user Id",
-                "description": "Returns the result identified by `user`.",
+                "summary": "Returns a results based on a user Id",
+                "description": "Returns the results identified by `user`.",
                 "operationId": "miw_get_results_byuser",
                 "parameters": [
                     {
@@ -393,13 +387,7 @@
                     "200": {
                         "description": "Result",
                         "schema": {
-                            "$ref": "#/definitions/Result"
-                        },
-                        "headers": {
-                            "X-Token": {
-                                "description": "api token",
-                                "type": "string"
-                            }
+                            "$ref": "#/definitions/ResultsArray"
                         }
                     },
                     "404": {
@@ -426,13 +414,7 @@
                 ],
                 "responses": {
                     "204": {
-                        "description": "Result deleted <Response body is empty>",
-                        "headers": {
-                            "X-Token": {
-                                "description": "api token",
-                                "type": "string"
-                            }
-                        }
+                        "description": "Result deleted <Response body is empty>"
                     },
                     "404": {
                         "$ref": "#/responses/404_Resource_Not_Found_Response"
@@ -928,7 +910,7 @@
         "result": {
             "name": "result",
             "in": "path",
-            "description": "value of result to fetch",
+            "description": "Value of result to fetch",
             "required": true,
             "type": "integer",
             "format": "int32",
@@ -937,7 +919,7 @@
         "username": {
             "name": "username",
             "in": "path",
-            "description": "username of user",
+            "description": "Username of user",
             "required": true,
             "type": "string"
         }
